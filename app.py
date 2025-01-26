@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from contextlib import closing  # Import the closing utility
 import sqlite3  # Import the sqlite3 module
@@ -13,10 +14,10 @@ from database import (
 import questions
 
 app = Flask(__name__)
-app.secret_key = "73c89b341dd40a813a1bae5b0e08a4c1"
+app.secret_key = os.environ.get("SECRET_KEY", "73c89b341dd40a813a1bae5b0e08a4c1")
 
 # Define the path to the SQLite database
-DATABASE = "quiz_app.db"
+DATABASE = os.environ.get("DATABASE_URL", "quiz_app.db")
 
 # Initialize the database
 init_db()
