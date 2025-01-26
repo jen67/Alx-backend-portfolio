@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card mx-auto" style="max-width: 800px;">
+    <div class="card-body">
+        <h2 class="card-title text-center mb-4">Your Previous Scores</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Score</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for score in scores %}
+                <tr>
+                    <td>{{ score.timestamp }}</td>
+                    <td>{{ score.score }}</td>
+                    <td>
+                        <form action="{{ url_for('delete_score', score_id=score.id) }}" method="POST" style="display:inline;">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                {% if page > 1 %}
+                    <li class="page-item"><a class="page-link" href="{{ url_for('scores', page=page-1) }}">Previous</a></li>
+                {% endif %}
+                {% for p in range(1, total_pages + 1) %}
+                    <li class="page-item {% if p == page %}active{% endif %}"><a class="page-link" href="{{ url_for('scores', page=p) }}">{{ p }}</a></li>
+                {% endfor %}
+                {% if page < total_pages %}
+                    <li class="page-item"><a class="page-link" href="{{ url_for('scores', page=page+1) }}">Next</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+
+        <div class="text-center">
+            <a href="{{ url_for('quiz') }}" class="btn btn-primary">Take the Quiz Again</a>
+            <a href="{{ url_for('index') }}" class="btn btn-outline-primary ms-3">Return to Home</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

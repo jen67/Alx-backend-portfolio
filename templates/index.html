@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- Hero Section -->
+<div class="hero-section">
+    <div class="container">
+        <h1>Google Cloud Digital Leader Quiz</h1>
+        <p>Prepare for your Google Cloud Digital Leader exam with our interactive quiz app. Test your knowledge with past questions and track your progress!</p>
+        {% if 'user_id' in session %}
+            <a href="{{ url_for('quiz') }}" class="btn btn-light btn-lg">Take the Quiz</a>
+            <a href="{{ url_for('scores') }}" class="btn btn-outline-light btn-lg ms-3">View Your Scores</a>
+        {% else %}
+            <a href="{{ url_for('login') }}" class="btn btn-light btn-lg">Login</a>
+            <a href="{{ url_for('register') }}" class="btn btn-outline-light btn-lg ms-3">Register</a>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="container">
+    <div class="row text-center">
+        <div class="col-md-4">
+            <div class="card p-4">
+                <h3>Past Questions</h3>
+                <p>Practice with real Google Cloud Digital Leader exam questions.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card p-4">
+                <h3>Track Progress</h3>
+                <p>View your scores and track your improvement over time.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card p-4">
+                <h3>Interactive Quiz</h3>
+                <p>Engage with an interactive and user-friendly quiz interface.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

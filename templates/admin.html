@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="card mx-auto shadow-lg" style="max-width: 800px; border: none;">
+        <div class="card-body p-4">
+            <h2 class="card-title text-center mb-4 display-4 text-primary">Add Questions</h2>
+            <form method="POST" action="{{ url_for('admin') }}">
+                <div class="mb-3">
+                    <label for="question" class="form-label">Question</label>
+                    <input type="text" class="form-control" id="question" name="question" required>
+                </div>
+                <div class="mb-3">
+                    <label for="options" class="form-label">Options (comma separated)</label>
+                    <input type="text" class="form-control" id="options" name="options" required>
+                </div>
+                <div class="mb-3">
+                    <label for="correct_answer" class="form-label">Correct Answer (comma separated for multiple)</label>
+                    <input type="text" class="form-control" id="correct_answer" name="correct_answer" required>
+                </div>
+                <div class="mb-3">
+                    <label for="type" class="form-label">Question Type</label>
+                    <select class="form-select" id="type" name="type">
+                        <option value="radio">Single Answer</option>
+                        <option value="checkbox">Multiple Answers</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg w-100">Add Question</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

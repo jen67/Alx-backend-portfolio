@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="card mx-auto" style="max-width: 800px;">
+        <div class="card-body">
+            <h2 class="card-title text-center mb-4">Quiz Results</h2>
+            <p class="text-center">Your score: <strong>{{ score }}</strong> out of <strong>{{ total_questions }}</strong></p>
+
+            <!-- Incorrect Questions -->
+            {% if incorrect_questions %}
+                <h3 class="mt-4">Questions You Got Wrong</h3>
+                {% for question in incorrect_questions %}
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-body">
+                            <p class="fw-bold fs-5">{{ question.number }}. {{ question.question }}</p>
+                            <ul>
+                                {% for option in question.options %}
+                                    <li class="{% if (question.correct_answer is iterable and loop.index0 in question.correct_answer) or loop.index0 == question.correct_answer %}text-success{% elif loop.index0|string in session.get('user_answers', {}).get(question.number|string, '') %}text-danger{% endif %}">
+                                        {{ option }}
+                                        {% if (question.correct_answer is iterable and loop.index0 in question.correct_answer) or loop.index0 == question.correct_answer %}
+                                            <span class="badge bg-success">Correct Answer</span>
+                                        {% elif loop.index0|string in session.get('user_answers', {}).get(question.number|string, '') %}
+                                            <span class="badge bg-danger">Your Answer</span>
+                                        {% endif %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <div class="text-center">
+                <a href="{{ url_for('quiz') }}" class="btn btn-primary">Take the Quiz Again</a>
+                <a href="{{ url_for('scores') }}" class="btn btn-outline-primary ms-3">View Your Scores</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
